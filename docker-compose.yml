@@ -5,8 +5,7 @@ services:
     restart: unless-stopped
 
     ports:
-      - "25665:25565/tcp"
-      - "25665:25565/udp"
+      - "5520:5520/udp"
 
     volumes:
       - ./server:/hytale-data
