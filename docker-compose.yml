@@ -5,14 +5,11 @@ services:
     restart: unless-stopped
 
     ports:
-      - "25565:25565/udp"
       - "25565:25565/tcp"
+      - "25565:25565/udp"
 
     volumes:
-      - ./server/config:/hytale/config
-      - ./server/worlds:/hytale/worlds
-      - ./server/logs:/hytale/logs
-      - ./server/server.properties:/hytale/server.properties
+      - ./server:/hytale
 
     environment:
       TZ: Europe/Berlin
