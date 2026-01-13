@@ -1,0 +1,18 @@
+services:
+  hytale:
+    container_name: hytale-server
+    build: .
+    restart: unless-stopped
+
+    ports:
+      - "25565:25565/udp"
+      - "25565:25565/tcp"
+
+    volumes:
+      - ./server/config:/hytale/config
+      - ./server/worlds:/hytale/worlds
+      - ./server/logs:/hytale/logs
+      - ./server/server.properties:/hytale/server.properties
+
+    environment:
+      TZ: Europe/Berlin
