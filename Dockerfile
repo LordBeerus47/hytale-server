@@ -1,9 +1,8 @@
 FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
-WORKDIR /hytale
 
-# Dependencies required by the Hytale server
+# Install dependencies
 RUN apt-get update && \
     apt-get install -y \
         curl \
@@ -11,13 +10,15 @@ RUN apt-get update && \
         libstdc++6 \
     && rm -rf /var/lib/apt/lists/*
 
-# Download the Hytale server launcher (NOT a zip)
+# Install launcher in a non-mounted path
+WORKDIR /opt/hytale
 RUN curl -L -o hytale-server https://launcher.hytale.com/server/latest/linux && \
     chmod +x hytale-server
 
-# Expose default ports
+# Persistent data directory
+WORKDIR /hytale-data
+
 EXPOSE 25565/tcp
 EXPOSE 25565/udp
 
-# Start server (it will download the real server on first run)
-CMD ["./hytale-server"]
+CMD ["/opt/hytale/hytale-server"]
