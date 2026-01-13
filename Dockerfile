@@ -18,10 +18,14 @@ RUN curl -fL -o hytale-downloader.zip https://downloader.hytale.com/hytale-downl
  && chmod +x hytale-downloader-linux-amd64 \
  && rm hytale-downloader.zip
 
+# Copy entrypoint script into image
+COPY server/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 # Persistent server data
 WORKDIR /hytale-data
 
 EXPOSE 25565/tcp
 EXPOSE 25565/udp
 
-CMD ["/opt/hytale/hytale-downloader-linux-amd64"]
+ENTRYPOINT ["/entrypoint.sh"]
