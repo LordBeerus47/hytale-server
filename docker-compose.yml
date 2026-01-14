@@ -1,14 +1,14 @@
 services:
   hytale:
-    container_name: hytale-server
-    build: .
+    image: indifferentbroccoli/hytale-server-docker
     restart: unless-stopped
-
+    container_name: hytale
+    stop_grace_period: 30s
     ports:
-      - "5520:5520/udp"
-
+      - 5520:5520/udp
+    env_file:
+      - .env
     volumes:
-      - ./server:/hytale-data
-
-    environment:
-      TZ: Europe/Berlin
+      - ./server-files:/home/hytale/server-files
+    stdin_open: true
+    tty: true
